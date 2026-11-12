@@ -5,6 +5,7 @@ from aiogram.types import Message
 from aiogram import Bot, Dispatcher
 from aiogram.filters import CommandStart, Command
 from src.handlers import router
+from db.database import init_db
 
 BOT_TOKEN = "8683342969:AAH_0vmddCWse7RBJE4Q-l1MjoqmATB2AFQ"
 
@@ -65,6 +66,7 @@ dp = Dispatcher()     # обработчик входящих обновлени
 
 
 async def main():
+    init_db()
     dp.include_router(router=router)
     await dp.start_polling(bot)
          # отправляет запросы на тг-сервер
