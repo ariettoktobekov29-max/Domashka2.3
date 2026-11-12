@@ -9,13 +9,17 @@ from src.keyboards import keybord_main, inline
 from src.questions import QUESTIONS
 from src.state import Quiz
 from aiogram.fsm.context import FSMContext
-
+from db.users import get_user, create_user ,update_user_username, delete_user
 
 router = Router()
 
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
+    user = create_user(
+        telegram_id=message.from_user.id,
+        username=message.from_user.username or "Аноним"
+    )
     await message.answer(
         f"Привет {message.from_user.full_name}, я твой бот!",
         reply_markup=keybord_main
